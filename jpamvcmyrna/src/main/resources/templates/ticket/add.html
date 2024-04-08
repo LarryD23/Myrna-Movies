@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+       <!-- Link to myrna.css -->
+        <link href="static/myrna.css" th:href="@{/myrna.css}"
+            rel="stylesheet" media="screen" />
+        <!-- End of myrna.css link -->  
+</head>
+<body>
+    <!-- Insert content into the layouts/layout.html -->
+    <div th:replace="~{add-ons/topnav :: navbar}"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Add Ticket</h2>
+            <form class="form-horizontal" th:object="${ticketForm}" th:action="@{/ticket/create}" method="post">
+                <div class="form-group">
+                    <label for="ticketPriceType">Ticket Type</label>
+                    <select id="ticketPriceType" name="ticketPriceTypeId" class="form-control" required>
+                        <option value="">Select Ticket Price Type</option>
+                        <option th:each="priceType : ${ticketPriceTypes}" th:value="${priceType.priceTypeId}" th:text="${priceType.priceTypeName}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="text" id="quantity" th:value="*{quantity}" name="quantity" class="form-control" required />
+                </div>
+                <!-- Scheduled Movie Dropdown -->
+                <div class="form-group">
+                    <label for="scheduledMovie">Scheduled Movie</label>
+                    <select th:field="*{scheduleId}" id="scheduledMovie" class="form-control" required>
+                        <option value="">Select Scheduled Movie</option>
+                        <!-- Iterate through the schedules -->
+                        <th:block th:each="schedule : ${schedules}">
+                            <option th:value="${schedule.scheduleId}" th:text="${schedule.movie.movieId + ' - ' + schedule.movie.movieName + ' - ' + schedule.Date + ' ' + schedule.Time}"></option>
+                        </th:block>
+                    </select>
+
+                    <!-- Hidden inputs for movieId -->
+                    <th:block th:each="schedule : ${schedules}">
+                     <input type="hidden" id="movieId" name="movieId" th:value="${schedules[0].movie.movieId}" />
+                    </th:block>
+                </div>
+                
+                <script th:inline="javascript">
+    // JavaScript to update movieId based on the selected schedule
+    document.getElementById('scheduledMovie').addEventListener('change', function() {
+        var selectedIndex = this.selectedIndex;
+        var movieIdInput = document.getElementById('movieId');
+        var schedules = /*[[${schedules}]]*/ [];
+
+        if (selectedIndex > 0) {
+            var selectedSchedule = schedules[selectedIndex - 1]; // Adjust index for the option with value ""
+            if (selectedSchedule) {
+                movieIdInput.value = selectedSchedule.movie.movieId;
+            }
+        } else {
+            movieIdInput.value = '';
+        }
+    });
+</script>
+
+                <!-- Navigation button to 'add.html' -->
+                <a th:href="@{/schedule/add}" class="btn btn-primary">Go to Add Schedule</a>
+
+                <!-- Submit Button -->
+                <input type="submit" class="btn btn-success" value="Add" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

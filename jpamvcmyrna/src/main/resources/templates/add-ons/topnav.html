@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Navigation</title>
+    <link href="/path/to/your/myrna.css" rel="stylesheet">
+</head>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Myrna Movies</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="ticketDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ticket
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="ticketDropdown">
+                        <a class="dropdown-item" href="/ticket/add">Add</a>
+                        <a class="dropdown-item" href="/ticket/list">List</a>
+                     
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="movieDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Movie
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="movieDropdown">
+                        <a class="dropdown-item" href="/movie/add">Add</a>
+                        <a class="dropdown-item" href="/movie/list">List</a>
+                      
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="scheduleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Schedule
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="scheduleDropdown">
+                        <a class="dropdown-item" href="/schedule/add">Add</a>
+                        <a class="dropdown-item" href="/schedule/list">List</a>
+                      
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

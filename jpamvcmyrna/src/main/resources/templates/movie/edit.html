@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout}">
+    <head>
+        <title>Edit Movie</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link
+            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+            th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"
+            rel="stylesheet" media="screen" />
+        
+        <!-- Link to myrna.css -->
+        <link href="static/myrna.css" th:href="@{/myrna.css}"
+            rel="stylesheet" media="screen" />
+        <!-- End of myrna.css link -->
+
+       
+        <script src="http://cdn.jsdelivr.net/webjars/jquery/2.2.3/jquery.min.js"
+            th:src="@{/webjars/jquery/2.2.3/jquery.min.js}"></script>
+    </head>
+    <body>
+        <!-- Insert content into the layouts/layout.html -->
+
+        <th:block layout:fragment="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <form class="form-horizontal" th:object="${movieEditForm}"
+                        th:action="@{/movie/submitedit}" method="post">
+                        <div class="form-group">
+                            <label for="name">Movie Name</label>
+                            <input type="text" id="name" th:value="*{movieName}"
+                                name="movieName" class="form-control" required />
+                            <input type="hidden" id="movieId"
+                                th:value="*{movieId}" name="movieId" />
+                        </div>
+
+                        <input type="submit" class="btn btn-success"
+                            value="Submit Changes" />
+                    </form>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>

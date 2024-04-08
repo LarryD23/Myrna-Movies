@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+      <head>
+            <title>Movie List</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link
+                  href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+                  th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"
+                  rel="stylesheet" media="screen" />
+           
+           <!-- Link to myrna.css -->
+        <link href="static/myrna.css" th:href="@{/myrna.css}"
+            rel="stylesheet" media="screen" />
+        <!-- End of myrna.css link -->
+
+            <script
+                  src="http://cdn.jsdelivr.net/webjars/jquery/2.2.3/jquery.min.js"
+                  th:src="@{/webjars/jquery/2.2.3/jquery.min.js}"></script>
+      </head>
+      <body>
+            <!-- Insert content into the layouts/layout.html -->
+                <div th:replace="~{add-ons/topnav :: navbar}">
+   </div>
+            
+            <th:block layout:fragment="content">
+                  <table>
+                        <tr th:each="movie : ${movies}">
+                              <td><a th:href="@{/movie/{id}(id=${movie.movieId})}" th:text="${movie.movieName}">Movie Name</a></td>
+                              <td><a
+                                          th:href="@{/movie/edit/{id}(id=${movie.movieId})}">Edit
+                                          Movie</a></td>
+                              
+                        </tr>
+                  </table>
+
+               
+            </th:block>
+      </body>
+</html>

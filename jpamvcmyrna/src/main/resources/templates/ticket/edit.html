@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+<head>
+    <title>Edit Ticket</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+     <!-- Link to myrna.css -->
+        <link href="static/myrna.css" th:href="@{/myrna.css}"
+            rel="stylesheet" media="screen" />
+        <!-- End of myrna.css link -->   
+         <script src="http://cdn.jsdelivr.net/webjars/jquery/2.2.3/jquery.min.js" th:src="@{/webjars/jquery/2.2.3/jquery.min.js}"></script>
+</head>
+<body>
+<!-- Insert content into the layouts/layout.html -->
+<th:block layout:fragment="content">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-horizontal" th:object="${ticketEditForm}" th:action="@{/ticket/submitedit}" method="post">
+                <div class="form-group">
+                    <label for="ticketPriceType">Ticket Type</label>
+                    <select id="ticketPriceType" name="ticketPriceTypeId" class="form-control" required>
+                        <option value="">Select Ticket Price Type</option>
+                        <option th:each="priceType : ${ticketPriceTypes}" th:value="${priceType.priceTypeId}" th:text="${priceType.priceTypeName}"></option>
+                    </select>
+                    <input type="hidden" id="ticketSoldId" th:value="*{ticketSoldId}" name="ticketSoldId" />
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="text" id="quantity" th:value="*{quantity}" name="quantity" class="form-control" required />
+                </div>
+
+              
+
+
+                <input type="submit" class="btn btn-success" value="Submit Changes" />
+            </form>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
